@@ -1,3 +1,5 @@
+<?php require_once 'library/Contact.php';?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +59,7 @@
 
                     <?php foreach(Contact::$types as $id => $type) { ?>
 
-                        <option value="<?php echo $id; ?>"><?php echo $type; ?></option>
+                        <option value="<?= $id; ?>"><?= $type; ?></option>
 
                     <?php } ?>
 
