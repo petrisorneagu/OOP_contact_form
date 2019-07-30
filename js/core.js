@@ -30,7 +30,7 @@ function templateObject(){
     }
 
     /**
-     * displays the message in case the form has/n't been un/succesfully submited
+     * displays the message in case the form has/n't been succesfully submited
      * @param message
      * @private
      */
