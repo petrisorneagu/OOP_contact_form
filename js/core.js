@@ -77,8 +77,7 @@ function templateObject(){
 
         _resetFoundationCustomSelect(thisForm);
     }
-    
-    
+
     function _submitForm(){
         "use strict";
         $(document).on('submit', _formIdentity, function(e){
