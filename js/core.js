@@ -27,10 +27,57 @@ function templateObject(){
         $.each(validation,function(k, v){
            $('#' + k).before(_wrapValidation(v));
         });
-
     }
-    
-    
+
+    /**
+     * displays the message in case the form has/n't been un/succesfully submited
+     * @param message
+     * @private
+     */
+    function _displayMessage(thisForm,message){
+        "use strict";
+
+        thisForm.find('legend').after(message);
+    }
+
+    /**
+     *clears the error messagesfrom above each field
+     * @param thisForm
+     * @private
+     */
+    function _clearFormValidation(thisForm){
+        "use strict";
+
+        thisForm.find('.warning', '.alert-box').remove();
+    }
+
+
+    /**
+     * reset the select with options form (only because of use of Foundation css)
+     * @param thisForm
+     * @private
+     */
+    function _resetFoundationCustomSelect(thisForm){
+            "use strict";
+
+            $.each(thisForm.find('.custom.dropdown'), function(){
+                $(this).find('ul li').removeClass('selected');
+                $(this).find('a.current').html($(this).find('ul li:first-child').text());
+            });
+    }
+
+
+    /**
+     * reset the form after submit
+     * @param thisForm
+     * @private
+     */
+    function _reset(thisForm){
+        "use strict";
+
+        _resetFoundationCustomSelect(thisForm);
+    }
+
     function _submitForm(){
         "use strict";
         $(document).on('submit', _formIdentity, function(e){
