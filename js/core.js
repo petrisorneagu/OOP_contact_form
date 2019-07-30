@@ -28,8 +28,6 @@ function templateObject(){
            $('#' + k).before(_wrapValidation(v));
         });
 
-
-
     }
     
     
