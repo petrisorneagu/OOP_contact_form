@@ -83,6 +83,21 @@ class Validator
     }
 
 
+    private function _isEmailValid($key = null, $value = null){
+
+            if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
+                $this->addError($key);
+            }
+    }
+
+    private function _validateSpecial($key = null, $value = null){
+
+        switch($key){
+            case 'email': $this->_isEmailValid($key, $value);
+            break;
+        }
+    }
+
     public function _isValueValid(){
 
         foreach($this->array as $key => $value){
