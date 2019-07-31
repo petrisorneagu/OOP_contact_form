@@ -35,6 +35,21 @@ class Validator
     }
 
     /**
+     *
+     * @param null $key
+     * @return bool
+     */
+    private function _isErrorKeyValid($key = null){
+        return( !empty($key) && !array_key_exists($key, $this->errors));
+    }
+
+    public function addError($key = null){
+        if($this->_isErrorKeyValid($key)){
+            $this->errors[$key] = $this->validation[$key];
+        }
+    }
+
+    /**
      * checks if the items which are inside of the required array have been passed through POST at submit
      */
     private function _isRequiredValid(){
@@ -45,12 +60,56 @@ class Validator
         }
     }
 
+    /**
+     * cheks agains the '0' value
+     * @param null $value
+     * @return bool
+     */
+    public static function _isEmpty($value = null){
+
+        return (empty($value) && !is_numeric($value));
+
+    }
+
+    /**
+     * @param null $key
+     * @param null $value
+     * @return bool
+     */
+    private function _isEmptyAndRequired($key = null, $value = null){
+        return (
+            self::_isEmpty($value) &&
+            in_array($key, $this->required));
+    }
+
+
+    public function _isValueValid(){
+
+        foreach($this->array as $key => $value){
+            if($this->_isEmptyAndRequired($key,  $value)){
+                $this->addError($key);
+
+            }else if(in_array($key, $this->special)){
+                $this->_validateSpecial($key, $value);
+
+            }
+        }
+    }
+
+    /**
+     * @param null $array
+     * @return bool
+     */
     public function _isValid($array = null){
         if(!$this->_isArrayEmpty($array)){
 
             $this->_filterExpected($array);
 
             $this->_isRequiredValid();
+
+            $this->_isValueValid();
+
+            return(empty($this->errors));
 
         }
         return false;
