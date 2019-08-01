@@ -1,5 +1,4 @@
-<?php require_once 'library/Contact.php';?>
-
+<?php require_once('library/Contact.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,21 +20,25 @@
         <legend>Contact Us</legend>
 
         <div class="large-6 columns">
+
             <label for="first_name">First name: *</label>
             <input
                     type="text"
                     name="first_name"
                     id="first_name"
                     placeholder="Your first name" />
+
         </div>
 
         <div class="large-6 columns">
+
             <label for="last_name">Last name: *</label>
             <input
                     type="text"
                     name="last_name"
                     id="last_name"
                     placeholder="Your last name" />
+
         </div>
 
         <div class="large-6 columns">
@@ -46,38 +49,49 @@
                     name="email"
                     id="email"
                     placeholder="Your email address" />
+
         </div>
 
         <div class="large-6 columns">
+
             <label for="type">Enquiry type: *</label>
             <select
                     name="type"
                     id="type">
+
                 <option value="">Select one</option>
 
                 <?php if (!empty(Contact::$types)) { ?>
 
                     <?php foreach(Contact::$types as $id => $type) { ?>
 
-                        <option value="<?= $id; ?>"><?= $type; ?></option>
+                        <option value="<?php echo $id; ?>"><?php echo $type; ?></option>
 
                     <?php } ?>
 
                 <?php } ?>
+
             </select>
+
         </div>
 
         <div class="large-12 columns">
+
             <label for="enquiry">Enquiry: *</label>
             <textarea name="enquiry" id="enquiry" placeholder="Your message"></textarea>
+
         </div>
 
         <div class="large-12 columns">
 
             <button class="button small"><i class="icon-envelope"></i> Send message</button>
+
         </div>
+
     </fieldset>
+
 </form>
+
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="js/foundation/foundation.js"></script>

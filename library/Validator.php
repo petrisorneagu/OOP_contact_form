@@ -1,14 +1,18 @@
 <?php
 
 
-class Validator
-{
+class Validator {
 
     public $expected = array();
+
     public $required = array();
+
     public $validation = array();
+
     public $array = array();
+
     public $errors = array();
+
     public $special = array();
 
 
@@ -30,8 +34,12 @@ class Validator
         foreach($array as $key => $value){
             if(in_array($key, $this->expected)){
                 $this->array[$key] = $value;
+
             }
+
         }
+
+
     }
 
     /**
@@ -43,10 +51,18 @@ class Validator
         return( !empty($key) && !array_key_exists($key, $this->errors));
     }
 
-    public function addError($key = null){
-        if($this->_isErrorKeyValid($key)){
+
+
+
+
+    public function addError($key = null) {
+
+        if ($this->_isErrorKeyValid($key)) {
+
             $this->errors[$key] = $this->validation[$key];
+
         }
+
     }
 
     /**
@@ -56,72 +72,93 @@ class Validator
         foreach($this->required as $key){
             if(! array_key_exists($key, $this->array)){
                 $this->addError($key);
+
             }
+
         }
+
     }
 
-    /**
-     * cheks agains the '0' value
-     * @param null $value
-     * @return bool
-     */
-    public static function _isEmpty($value = null){
+
+
+
+    public static function isEmpty($value = null) {
 
         return (empty($value) && !is_numeric($value));
 
     }
 
-    /**
-     * @param null $key
-     * @param null $value
-     * @return bool
-     */
-    private function _isEmptyAndRequired($key = null, $value = null){
+
+
+
+
+    private function _isEmptyAndRequired($key = null, $value = null) {
+
         return (
-            self::_isEmpty($value) &&
-            in_array($key, $this->required));
+
+            self::isEmpty($value) &&
+            in_array($key, $this->required)
+
+        );
+
     }
 
-    /**
-     * email validation
-     * @param null $key
-     * @param null $value
-     */
-    private function _isEmailValid($key = null, $value = null){
 
-            if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
-                $this->addError($key);
-            }
-    }
 
-    private function _validateSpecial($key = null, $value = null){
 
-        switch($key){
-            case 'email': $this->_isEmailValid($key, $value);
-            break;
+    private function _isEmailValid($key = null, $value = null) {
+
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+
+            $this->addError($key);
+
         }
+
     }
 
-    public function _isValueValid(){
 
-        foreach($this->array as $key => $value){
-            if($this->_isEmptyAndRequired($key,  $value)){
+
+
+    private function _validateSpecial($key = null, $value = null) {
+
+        switch($key) {
+
+            case 'email':
+                $this->_isEmailValid($key, $value);
+                break;
+
+        }
+
+    }
+
+
+
+
+    private function _isValueValid() {
+
+        foreach($this->array as $key => $value) {
+
+            if ($this->_isEmptyAndRequired($key, $value)) {
+
                 $this->addError($key);
 
-            }else if(in_array($key, $this->special)){
+            } else if (in_array($key, $this->special)) {
+
                 $this->_validateSpecial($key, $value);
 
             }
+
         }
+
     }
 
-    /**
-     * @param null $array
-     * @return bool
-     */
-    public function _isValid($array = null){
 
-        if(!$this->_isArrayEmpty($array)){
+
+
+
+    public function isValid($array = null) {
+
+        if (!$this->_isArrayEmpty($array)) {
 
             $this->_filterExpected($array);
 
@@ -129,10 +166,12 @@ class Validator
 
             $this->_isValueValid();
 
-            return (empty($this->errors));
+            return empty($this->errors);
 
         }
+
         return false;
+
     }
 
 }
