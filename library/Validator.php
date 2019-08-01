@@ -82,7 +82,11 @@ class Validator
             in_array($key, $this->required));
     }
 
-
+    /**
+     * email validation
+     * @param null $key
+     * @param null $value
+     */
     private function _isEmailValid($key = null, $value = null){
 
             if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
@@ -116,6 +120,7 @@ class Validator
      * @return bool
      */
     public function _isValid($array = null){
+
         if(!$this->_isArrayEmpty($array)){
 
             $this->_filterExpected($array);
@@ -124,9 +129,10 @@ class Validator
 
             $this->_isValueValid();
 
-            return(empty($this->errors));
+            return (empty($this->errors));
 
         }
         return false;
     }
+
 }
